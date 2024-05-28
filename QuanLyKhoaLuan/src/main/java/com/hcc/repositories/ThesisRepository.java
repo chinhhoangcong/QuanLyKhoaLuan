@@ -6,12 +6,15 @@ package com.hcc.repositories;
 
 import com.hcc.pojo.Thesis;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author ACER
  */
 public interface ThesisRepository {
-    List<Thesis> getThesises();
+    List<Thesis> getThesises(Map<String, String> params);
     void addOrUpdate(Thesis p);
+    Thesis getThesisbyId(int id);
+    void deleteThesis(int id);
 }

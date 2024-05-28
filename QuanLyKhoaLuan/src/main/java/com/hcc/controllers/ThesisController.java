@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
@@ -40,5 +41,12 @@ public class ThesisController {
         }
 
         return "index";
+    }
+    
+    @GetMapping("/thesises/{thesisId}")
+    public String updateView(Model model,@PathVariable(value = "thesisId") int id) {
+        model.addAttribute("thesis", this.thesisSer.getThesisbyId(id));
+        
+        return "addThesis";
     }
 }

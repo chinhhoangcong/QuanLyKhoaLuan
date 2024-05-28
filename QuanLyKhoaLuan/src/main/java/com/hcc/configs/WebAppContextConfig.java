@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
@@ -44,11 +45,14 @@ public class WebAppContextConfig implements WebMvcConfigurer {
 //        r.setSuffix(".jsp");
 //        return r;
 //    }
-
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new CouncilFormatter());
     }
-    
-    
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/");
+    }
+
 }

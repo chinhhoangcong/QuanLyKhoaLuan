@@ -6,12 +6,14 @@ package com.hcc.controllers;
 
 import com.hcc.services.CouncilService;
 import com.hcc.services.ThesisService;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -32,8 +34,8 @@ public class HomeController {
     }
     
     @RequestMapping("/")
-    public String index(Model model) {
-        model.addAttribute("thesis",this.sisService.getThesises());
+    public String index(Model model ,@RequestParam Map<String, String> params) {
+        model.addAttribute("thesis",this.sisService.getThesises(params));
         return "index";
     }
 }

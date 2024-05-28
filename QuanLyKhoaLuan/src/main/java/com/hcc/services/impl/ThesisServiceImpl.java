@@ -26,13 +26,23 @@ public class ThesisServiceImpl implements ThesisService {
     private ThesisRepository theSisRepo;
 
     @Override
-    public List<Thesis> getThesises() {
-        return this.theSisRepo.getThesises();
+    public List<Thesis> getThesises(Map<String, String> params) {
+        return this.theSisRepo.getThesises(params);
     }
 
     @Override
     public void addOrUpdate(Thesis p) {
         this.theSisRepo.addOrUpdate(p);
+    }
+
+    @Override
+    public Thesis getThesisbyId(int id) {
+        return this.theSisRepo.getThesisbyId(id);
+    }
+
+    @Override
+    public void deleteThesis(int id) {
+        this.theSisRepo.deleteThesis(id);
     }
 
 }
