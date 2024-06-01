@@ -7,10 +7,11 @@ package com.hcc.pojo;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,7 +34,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
     @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active"),
-    @NamedQuery(name = "User.findByUserRole", query = "SELECT u FROM User u WHERE u.userRole = :userRole"),
     @NamedQuery(name = "User.findByAvatar", query = "SELECT u FROM User u WHERE u.avatar = :avatar")})
 public class User implements Serializable {
 
@@ -56,9 +56,6 @@ public class User implements Serializable {
     private String password;
     @Column(name = "active")
     private Short active;
-    @Size(max = 45)
-    @Column(name = "user_role")
-    private String userRole;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
@@ -66,8 +63,11 @@ public class User implements Serializable {
     private String avatar;
     @OneToMany(mappedBy = "userId")
     private Set<Teacher> teacherSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    @OneToMany(mappedBy = "userId")
     private Set<Student> studentSet;
+    @JoinColumn(name = "user_role", referencedColumnName = "id")
+    @ManyToOne
+    private UserRole userRole;
 
     public User() {
     }
@@ -115,14 +115,6 @@ public class User implements Serializable {
         this.active = active;
     }
 
-    public String getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
-    }
-
     public String getAvatar() {
         return avatar;
     }
@@ -147,6 +139,14 @@ public class User implements Serializable {
 
     public void setStudentSet(Set<Student> studentSet) {
         this.studentSet = studentSet;
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
     @Override

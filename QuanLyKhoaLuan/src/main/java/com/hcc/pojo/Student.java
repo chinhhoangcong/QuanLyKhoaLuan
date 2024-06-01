@@ -62,7 +62,7 @@ public class Student implements Serializable {
     @ManyToOne
     private Thesis thesisId;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private User userId;
 
     public Student() {

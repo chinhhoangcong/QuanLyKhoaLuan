@@ -7,7 +7,46 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<h1 class="text-center text-info mt-1" > Thêm Khóa Luận</h1>
+<c:choose>
+    <c:when test="${thesis.id > 0}"><h1 class="text-center text-info mt-1" > CẬP NHẬP KHÓA LUẬN</h1> </c:when>
+    <c:otherwise><h1 class="text-center text-info mt-1" >THÊM KHÓA LUẬN </h1></c:otherwise>
+</c:choose>
+
+<div class="form-group">
+    <form method="post" action="/student"  >
+        <label for="studentId">Sinh viên thực hiện:</label>
+        <select id="studentId" name="studentId">
+            <option value=""></option>
+            <c:forEach items="${listStudent}" var="student">
+                <option value="${student.id}">${student.firstName} ${student.lastName}</option>
+            </c:forEach>
+        </select>
+        <input type="submit" class="btn btn-info" value="Thêm sinh viên"></input>
+    </form>
+    <br>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Mã sinh viên</th>
+                    <th>Tên sinh viên</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:if test="${students != null}">
+                    <c:forEach items="${students}" var="c">
+                        <tr>
+                            <td>${c.id}</td>
+                            <td>${c.firstName} ${c.lastName}  </td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 <c:url value="/thesises" var="action" />
 <form:form method="post" action="${action}" modelAttribute="thesis" >
     <div class="form-floating mb-3 mt-3">
@@ -23,59 +62,8 @@
     <div class="form-floating">
         <form:select class="form-select" id="councilId"  path="councilId">
             <c:forEach items="${council}" var="c">
-            <c:choose>
-                    <c:when test="${c.id==thesis.councilId.id}">
-                        <option value="${c.id}" selected>${c.name}</option>
-                    </c:when>
-                    <c:otherwise>
-                        <option value="${c.id}">${c.name}</option>
-                    </c:otherwise>
-                </c:choose>
-                        </c:forEach>
-        </form:select>
-        <label for="sel1" class="form-label">Danh Sách Hội Đồng</label>
-    </div>
-    <div class="form-floating">
-        <button class="btn btn-info mt-3" type="submit" >
-            <c:choose>
-                <c:when test="${thesis.id > 0}">cập nhập sản phẩm </c:when>
-                <c:otherwise>Thêm sản phẩm</c:otherwise>
-            </c:choose>
-        </button>
-        <form:hidden path="id" />
-    </div>
-    
-
-</form:form>
-
-
-
-
-
-<%--<form:form method="post" action="${action}" modelAttribute="product" enctype="multipart/form-data">
-    <form:errors path="*" element="div" cssClass="alert alert-danger"  />
-    <div class="form-floating mb-3 mt-3">
-        <form:input class="form-control" id="name" placeholder="Tên sản phẩm" path="name"/>
-        <label for="name"> tên sản phẩm</label>
-    </div >
-
-    <div class="form-floating mb-3 mt-3">
-        <form:input class="form-control" id="price" placeholder="giá sản phẩm" path="price"/>
-        <label for="name">giá sản phẩm</label>
-    </div>       
-    <div class="form-floating mb-3 mt-3">
-        <form:input type="file" class="form-control" id="image" path="file"/>
-        <label for="image"> ảnh sản phẩm</label>
-        <c:if test="${product.id > 0}">
-            <img src="${product.image}" width="200" class="img-fluid" />
-        </c:if>
-    </div>
-
-    <div class="form-floating">
-        <form:select class="form-select" id="categoryId"  path="categoryId">
-            <c:forEach items="${category}" var="c">
                 <c:choose>
-                    <c:when test="${c.id==product.categoryId.id}">
+                    <c:when test="${c.id==thesis.councilId.id}">
                         <option value="${c.id}" selected>${c.name}</option>
                     </c:when>
                     <c:otherwise>
@@ -84,18 +72,16 @@
                 </c:choose>
             </c:forEach>
         </form:select>
-        <label for="sel1" class="form-label">Danh Mục</label>
+        <label for="sel1" class="form-label">Danh Sách Hội Đồng</label>
     </div>
-
     <div class="form-floating">
-        <button class="btn btn-info" type="submit" >
+        <button class="btn btn-info mt-3" type="submit" >
             <c:choose>
-                <c:when test="${product.id > 0}">cập nhập sản phẩm </c:when>
-                <c:otherwise>Thêm sản phẩm</c:otherwise>
+                <c:when test="${thesis.id > 0}">Cập nhập Khóa Luận </c:when>
+                <c:otherwise>Thêm Khóa Luận</c:otherwise>
             </c:choose>
         </button>
         <form:hidden path="id" />
-    </div>
-
-</form:form>--%>
+    </div> 
+</form:form>
 

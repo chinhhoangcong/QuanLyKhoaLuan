@@ -14,6 +14,7 @@
     <class>com.hcc.pojo.MemberRole</class>
     <class>com.hcc.pojo.CouncilTeacher</class>
     <class>com.hcc.pojo.ThesisScore</class>
+    <class>com.hcc.pojo.UserRole</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/khoaluandb1?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
