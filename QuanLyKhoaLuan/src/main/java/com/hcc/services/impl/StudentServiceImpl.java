@@ -31,7 +31,7 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public Student getStudentById(String id) {
+    public Student getStudentById(int id) {
         return this.studentRepository.getStudentById(id);
     }
 

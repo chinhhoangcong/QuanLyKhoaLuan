@@ -27,6 +27,4 @@
             <button class="btn btn-primary" type="submit">Tìm</button>
         </form>
     </div>
-
-
 </nav>

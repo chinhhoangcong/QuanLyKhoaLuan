@@ -72,10 +72,10 @@ public class StudentRepositoryImpl implements StudentRepository{
     }
 
     @Override
-    public Student getStudentById(String id) {
+    public Student getStudentById(int id) {
         Session s = sessionFactory.getObject().getCurrentSession();
-        Student u = s.get(Student.class,id);
-        return u;
+        
+        return s.get(Student.class, id);
     }
 
     @Override

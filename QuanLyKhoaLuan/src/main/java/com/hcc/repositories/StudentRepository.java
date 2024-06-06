@@ -16,8 +16,8 @@ import java.util.Map;
  */
 public interface StudentRepository {
     List<Student> getStudents(Map<String,String> params);
-    Student getStudentById(String id);
+    Student getStudentById(int id);
     void addOrUpdateStudent(Student s);
     void addThesis(Student s, Thesis t);
-
+    
 }

@@ -49,7 +49,7 @@
 </div>
 
 <c:url value="/thesises" var="action" />
-<form:form method="post" action="${action}" modelAttribute="thesis" >
+<form:form method="post" action="${action}" modelAttribute="thesis"  >
     <div class="form-floating mb-3 mt-3">
         <form:input class="form-control" id="name" placeholder="Tên khóa luận" path="name"/>
         <label for="name"> Tên Khóa Luận</label>

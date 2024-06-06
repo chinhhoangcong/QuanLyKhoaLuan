@@ -1,4 +1,4 @@
-function deleteProduct(url, id) {
+function deleteProduct(url, id, id1) {
     fetch(url, {
         method: 'delete'
     }).then(res => {

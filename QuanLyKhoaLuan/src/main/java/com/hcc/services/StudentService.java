@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public interface StudentService {
     List<Student> getStudents(Map<String,String> kw);
-    Student getStudentById(String id);
+    Student getStudentById(int id);
     void addOrUpdateStudent(Student s);
     void addThesis(Student studentId, Thesis thesisId);
 

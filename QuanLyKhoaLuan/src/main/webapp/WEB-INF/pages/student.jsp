@@ -37,7 +37,7 @@
     </div> 
 </form:form>
 
-<div>
+<!--<div>
     <table class="table">
         <thead>
             <tr>
@@ -58,4 +58,4 @@
             </c:if>
         </tbody>
     </table>
-</div>
+</div>-->

@@ -20,18 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author ACER
  */
 @Controller
-@ControllerAdvice
+
 public class HomeController {
     @Autowired
     private ThesisService sisService;
+        
     
-    @Autowired
-    private CouncilService counService;
-    
-    @ModelAttribute
-    public void commonAttr(Model model) {
-        model.addAttribute("council", this.counService.getCouncils());
-    }
     
     @RequestMapping("/")
     public String index(Model model ,@RequestParam Map<String, String> params) {

@@ -87,11 +87,12 @@ public class ThesisRepositoryImpl implements ThesisRepository {
     @Override
     public void addOrUpdate(Thesis p) {
         Session s = factory.getObject().getCurrentSession();
-        if (p.getId() > 0) {
+        if (p.getId() != null) {
             s.update(p);
         } else {
             s.save(p);
         }
+
     }
 
     @Override

@@ -16,5 +16,5 @@ public interface ThesisService {
     List<Thesis> getThesises(Map<String, String> params);
     void addOrUpdate(Thesis p);
     Thesis getThesisbyId(int id);
-     void deleteThesis(int id);
+    void deleteThesis(int id);
 }

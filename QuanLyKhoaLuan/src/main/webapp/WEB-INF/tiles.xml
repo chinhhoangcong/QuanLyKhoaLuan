@@ -24,4 +24,8 @@
         <put-attribute name="title" value="Hội Đồng Chấm Điểm" />
         <put-attribute name="content" value="/WEB-INF/pages/student.jsp" />
     </definition>
+    <definition name="thesisDetail" extends="baseLayout">
+        <put-attribute name="title" value="Hội Đồng Chấm Điểm" />
+        <put-attribute name="content" value="/WEB-INF/pages/thesisDetail.jsp" />
+    </definition>
 </tiles-definitions>
