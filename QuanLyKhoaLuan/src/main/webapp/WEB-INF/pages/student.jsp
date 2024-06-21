@@ -31,7 +31,7 @@
 
     <div class="form-floating">
         <button class="btn btn-info mt-3" type="submit" >
-            sản phẩm
+            Thêm Sinh Viên
         </button>
 
     </div> 

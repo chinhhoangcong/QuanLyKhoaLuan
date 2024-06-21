@@ -62,9 +62,11 @@ public class User implements Serializable {
     @Column(name = "avatar")
     private String avatar;
     @OneToMany(mappedBy = "userId")
+    private Set<Student> studentSet;
+    @OneToMany(mappedBy = "userId")
     private Set<Teacher> teacherSet;
     @OneToMany(mappedBy = "userId")
-    private Set<Student> studentSet;
+    private Set<ThesisScore> thesisScoreSet;
     @JoinColumn(name = "user_role", referencedColumnName = "id")
     @ManyToOne
     private UserRole userRole;
@@ -124,6 +126,15 @@ public class User implements Serializable {
     }
 
     @XmlTransient
+    public Set<Student> getStudentSet() {
+        return studentSet;
+    }
+
+    public void setStudentSet(Set<Student> studentSet) {
+        this.studentSet = studentSet;
+    }
+
+    @XmlTransient
     public Set<Teacher> getTeacherSet() {
         return teacherSet;
     }
@@ -133,12 +144,12 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Set<Student> getStudentSet() {
-        return studentSet;
+    public Set<ThesisScore> getThesisScoreSet() {
+        return thesisScoreSet;
     }
 
-    public void setStudentSet(Set<Student> studentSet) {
-        this.studentSet = studentSet;
+    public void setThesisScoreSet(Set<ThesisScore> thesisScoreSet) {
+        this.thesisScoreSet = thesisScoreSet;
     }
 
     public UserRole getUserRole() {

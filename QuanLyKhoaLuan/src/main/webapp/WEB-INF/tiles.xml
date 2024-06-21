@@ -21,11 +21,15 @@
         <put-attribute name="content" value="/WEB-INF/pages/council.jsp" />
     </definition>
     <definition name="student" extends="baseLayout">
-        <put-attribute name="title" value="Hội Đồng Chấm Điểm" />
+        <put-attribute name="title" value="Sinh Viên" />
         <put-attribute name="content" value="/WEB-INF/pages/student.jsp" />
     </definition>
     <definition name="thesisDetail" extends="baseLayout">
-        <put-attribute name="title" value="Hội Đồng Chấm Điểm" />
+        <put-attribute name="title" value="Chi tiết khóa luận" />
         <put-attribute name="content" value="/WEB-INF/pages/thesisDetail.jsp" />
+    </definition>
+    <definition name="stats" extends="baseLayout">
+        <put-attribute name="title" value="Thống Kê" />
+        <put-attribute name="content" value="/WEB-INF/pages/stats.jsp" />
     </definition>
 </tiles-definitions>

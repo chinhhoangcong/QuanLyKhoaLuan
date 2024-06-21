@@ -5,19 +5,19 @@
 package com.hcc.pojo;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -28,15 +28,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ACER
  */
 @Entity
-@Table(name = "council")
+@Table(name = "major")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Council.findAll", query = "SELECT c FROM Council c"),
-    @NamedQuery(name = "Council.findById", query = "SELECT c FROM Council c WHERE c.id = :id"),
-    @NamedQuery(name = "Council.findByName", query = "SELECT c FROM Council c WHERE c.name = :name"),
-    @NamedQuery(name = "Council.findByActive", query = "SELECT c FROM Council c WHERE c.active = :active"),
-    @NamedQuery(name = "Council.findByCreatedDate", query = "SELECT c FROM Council c WHERE c.createdDate = :createdDate")})
-public class Council implements Serializable {
+    @NamedQuery(name = "Major.findAll", query = "SELECT m FROM Major m"),
+    @NamedQuery(name = "Major.findById", query = "SELECT m FROM Major m WHERE m.id = :id"),
+    @NamedQuery(name = "Major.findByName", query = "SELECT m FROM Major m WHERE m.name = :name")})
+public class Major implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,27 +44,25 @@ public class Council implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 45)
     @Column(name = "name")
     private String name;
-    @Column(name = "active")
-    private Short active;
-    @Column(name = "created_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "councilId")
-    private Set<CouncilTeacher> councilTeacherSet;
-    @OneToMany(mappedBy = "councilId")
-    private Set<Thesis> thesisSet;
+    @JoinTable(name = "major_year", joinColumns = {
+        @JoinColumn(name = "year_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "major_id", referencedColumnName = "id")})
+    @ManyToMany
+    private Set<Year> yearSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "majorId")
+    private Set<Class> classSet;
 
-    public Council() {
+    public Major() {
     }
 
-    public Council(Integer id) {
+    public Major(Integer id) {
         this.id = id;
     }
 
-    public Council(Integer id, String name) {
+    public Major(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -87,38 +83,22 @@ public class Council implements Serializable {
         this.name = name;
     }
 
-    public Short getActive() {
-        return active;
+    @XmlTransient
+    public Set<Year> getYearSet() {
+        return yearSet;
     }
 
-    public void setActive(Short active) {
-        this.active = active;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
+    public void setYearSet(Set<Year> yearSet) {
+        this.yearSet = yearSet;
     }
 
     @XmlTransient
-    public Set<CouncilTeacher> getCouncilTeacherSet() {
-        return councilTeacherSet;
+    public Set<Class> getClassSet() {
+        return classSet;
     }
 
-    public void setCouncilTeacherSet(Set<CouncilTeacher> councilTeacherSet) {
-        this.councilTeacherSet = councilTeacherSet;
-    }
-
-    @XmlTransient
-    public Set<Thesis> getThesisSet() {
-        return thesisSet;
-    }
-
-    public void setThesisSet(Set<Thesis> thesisSet) {
-        this.thesisSet = thesisSet;
+    public void setClassSet(Set<Class> classSet) {
+        this.classSet = classSet;
     }
 
     @Override
@@ -131,10 +111,10 @@ public class Council implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Council)) {
+        if (!(object instanceof Major)) {
             return false;
         }
-        Council other = (Council) object;
+        Major other = (Major) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -143,7 +123,7 @@ public class Council implements Serializable {
 
     @Override
     public String toString() {
-        return "com.hcc.pojo.Council[ id=" + id + " ]";
+        return "com.hcc.pojo.Major[ id=" + id + " ]";
     }
     
 }

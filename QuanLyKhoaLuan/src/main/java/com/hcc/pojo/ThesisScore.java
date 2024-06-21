@@ -5,6 +5,7 @@
 package com.hcc.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -28,7 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "ThesisScore.findAll", query = "SELECT t FROM ThesisScore t"),
     @NamedQuery(name = "ThesisScore.findById", query = "SELECT t FROM ThesisScore t WHERE t.id = :id"),
-    @NamedQuery(name = "ThesisScore.findByScore", query = "SELECT t FROM ThesisScore t WHERE t.score = :score")})
+    @NamedQuery(name = "ThesisScore.findByScore", query = "SELECT t FROM ThesisScore t WHERE t.score = :score"),
+    @NamedQuery(name = "ThesisScore.findByCreatedDate", query = "SELECT t FROM ThesisScore t WHERE t.createdDate = :createdDate")})
 public class ThesisScore implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,12 +44,15 @@ public class ThesisScore implements Serializable {
     @Size(max = 45)
     @Column(name = "score")
     private String score;
-    @JoinColumn(name = "teacher_id", referencedColumnName = "id")
-    @ManyToOne
-    private Teacher teacherId;
+    @Column(name = "created_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
     @JoinColumn(name = "thesis_criteria_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private ThesisCriteria thesisCriteriaId;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne
+    private User userId;
 
     public ThesisScore() {
     }
@@ -70,12 +77,12 @@ public class ThesisScore implements Serializable {
         this.score = score;
     }
 
-    public Teacher getTeacherId() {
-        return teacherId;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setTeacherId(Teacher teacherId) {
-        this.teacherId = teacherId;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public ThesisCriteria getThesisCriteriaId() {
@@ -84,6 +91,14 @@ public class ThesisScore implements Serializable {
 
     public void setThesisCriteriaId(ThesisCriteria thesisCriteriaId) {
         this.thesisCriteriaId = thesisCriteriaId;
+    }
+
+    public User getUserId() {
+        return userId;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
 
     @Override

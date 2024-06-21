@@ -20,7 +20,26 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/council"/>"> Quản Lý Hội Đồng</a>
                 </li>
+                <c:choose>
+                    <c:when test="${pageContext.request.userPrincipal.name == null}">
+                        <li class="nav-item">
+                            <a class=" btn btn-info " href="<c:url value="/login" />">Đăng nhập</a>
+                        </li>
+                    </c:when>
+                    <c:when test="${pageContext.request.userPrincipal.name != null}">
+                        <li class="nav-item">
+                            <a class=" btn btn-danger " href="<c:url value="/" />">Chào ${pageContext.request.userPrincipal.name}!</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class=" btn btn-info " href="<c:url value="/logout" />">Đăng xuất</a>
+                        </li>
+                    </c:when>
+                </c:choose>
+                <li class="nav-item">
+                    <a class=" btn btn-danger " href="<c:url value="/stats" />">Thống kê báo cáo</a>
+                </li>
             </ul>
+
         </div>
         <form action="<c:url value="/" />" class="d-flex">
             <input class="form-control me-2" name="kw" type="search" placeholder="Nhập tên...">

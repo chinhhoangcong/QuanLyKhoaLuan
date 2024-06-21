@@ -7,6 +7,7 @@ package com.hcc.pojo;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,7 +44,7 @@ public class ThesisCriteria implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "total_score")
     private Float totalScore;
-    @OneToMany(mappedBy = "thesisCriteriaId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "thesisCriteriaId")
     private Set<ThesisScore> thesisScoreSet;
     @JoinColumn(name = "criteria_id", referencedColumnName = "id")
     @ManyToOne

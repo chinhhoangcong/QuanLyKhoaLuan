@@ -58,6 +58,9 @@ public class Student implements Serializable {
     private String email;
     @Column(name = "phone")
     private Integer phone;
+    @JoinColumn(name = "class_id", referencedColumnName = "id")
+    @ManyToOne
+    private Class classId;
     @JoinColumn(name = "thesis_id", referencedColumnName = "id")
     @ManyToOne
     private Thesis thesisId;
@@ -116,6 +119,14 @@ public class Student implements Serializable {
 
     public void setPhone(Integer phone) {
         this.phone = phone;
+    }
+
+    public Class getClassId() {
+        return classId;
+    }
+
+    public void setClassId(Class classId) {
+        this.classId = classId;
     }
 
     public Thesis getThesisId() {

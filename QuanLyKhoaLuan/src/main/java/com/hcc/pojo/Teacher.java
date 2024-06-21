@@ -71,13 +71,11 @@ public class Teacher implements Serializable {
         @JoinColumn(name = "thesis_id", referencedColumnName = "id")})
     @ManyToMany
     private Set<Thesis> thesisSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "teacherId")
+    private Set<CouncilTeacher> councilTeacherSet;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
     private User userId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "teacherId")
-    private Set<CouncilTeacher> councilTeacherSet;
-    @OneToMany(mappedBy = "teacherId")
-    private Set<ThesisScore> thesisScoreSet;
 
     public Teacher() {
     }
@@ -141,14 +139,6 @@ public class Teacher implements Serializable {
         this.thesisSet = thesisSet;
     }
 
-    public User getUserId() {
-        return userId;
-    }
-
-    public void setUserId(User userId) {
-        this.userId = userId;
-    }
-
     @XmlTransient
     public Set<CouncilTeacher> getCouncilTeacherSet() {
         return councilTeacherSet;
@@ -158,13 +148,12 @@ public class Teacher implements Serializable {
         this.councilTeacherSet = councilTeacherSet;
     }
 
-    @XmlTransient
-    public Set<ThesisScore> getThesisScoreSet() {
-        return thesisScoreSet;
+    public User getUserId() {
+        return userId;
     }
 
-    public void setThesisScoreSet(Set<ThesisScore> thesisScoreSet) {
-        this.thesisScoreSet = thesisScoreSet;
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
 
     @Override
