@@ -4,7 +4,8 @@
  */
 package com.hcc.configs;
 
-
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -67,5 +68,16 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 //        .antMatchers("/**/pay")
 //                .access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
         http.csrf().disable();
+    }
+
+    @Bean
+    public Cloudinary cloudinary() {
+        Cloudinary cloudinary
+                = new Cloudinary(ObjectUtils.asMap(
+                        "cloud_name", "chinhhoangcong17",
+                        "api_key", "765492324157518",
+                        "api_secret", "weKsBTffL8E7cE2iRFP4NRZsazA",
+                        "secure", true));
+        return cloudinary;
     }
 }

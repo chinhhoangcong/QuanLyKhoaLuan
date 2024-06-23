@@ -31,10 +31,14 @@ public class UserRepositoryImpl implements UserRepository {
         Session s = this.factory.getObject().getCurrentSession();
         Query q = s.createQuery("FROM User WHERE username = :username");
         q.setParameter("username", username);
-        
+
         return (User) q.getSingleResult();
     }
 
-
+    @Override
+    public void addUser(User user) {
+        Session s = this.factory.getObject().getCurrentSession();
+        s.save(user);
+    }
 
 }

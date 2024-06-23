@@ -4,6 +4,7 @@
  */
 package com.hcc.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -60,13 +61,17 @@ public class Thesis implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
     @ManyToMany(mappedBy = "thesisSet")
+    @JsonIgnore
     private Set<Teacher> teacherSet;
     @OneToMany(mappedBy = "thesisId")
+    @JsonIgnore
     private Set<Student> studentSet;
     @JoinColumn(name = "council_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Council councilId;
     @OneToMany(mappedBy = "thesisId")
+    @JsonIgnore
     private Set<ThesisCriteria> thesisCriteriaSet;
 
     public Thesis() {

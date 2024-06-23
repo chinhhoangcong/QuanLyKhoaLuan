@@ -5,21 +5,18 @@
 package com.hcc.pojo;
 
 import java.io.Serializable;
-import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -34,8 +31,23 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
     @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active"),
+    @NamedQuery(name = "User.findByUserRole", query = "SELECT u FROM User u WHERE u.userRole = :userRole"),
     @NamedQuery(name = "User.findByAvatar", query = "SELECT u FROM User u WHERE u.avatar = :avatar")})
 public class User implements Serializable {
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -55,21 +67,16 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
     @Column(name = "active")
-    private Short active;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+    private Boolean active;
+    @Size(max = 45)
+    @Column(name = "user_role")
+    private String userRole;
+    @Size(max = 300)
     @Column(name = "avatar")
     private String avatar;
-    @OneToMany(mappedBy = "userId")
-    private Set<Student> studentSet;
-    @OneToMany(mappedBy = "userId")
-    private Set<Teacher> teacherSet;
-    @OneToMany(mappedBy = "userId")
-    private Set<ThesisScore> thesisScoreSet;
-    @JoinColumn(name = "user_role", referencedColumnName = "id")
-    @ManyToOne
-    private UserRole userRole;
+    
+    @Transient
+    private MultipartFile file;
 
     public User() {
     }
@@ -78,11 +85,10 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(String id, String username, String password, String avatar) {
+    public User(String id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.avatar = avatar;
     }
 
     public String getId() {
@@ -109,12 +115,20 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Short getActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(Short active) {
+    public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 
     public String getAvatar() {
@@ -123,41 +137,6 @@ public class User implements Serializable {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
-    }
-
-    @XmlTransient
-    public Set<Student> getStudentSet() {
-        return studentSet;
-    }
-
-    public void setStudentSet(Set<Student> studentSet) {
-        this.studentSet = studentSet;
-    }
-
-    @XmlTransient
-    public Set<Teacher> getTeacherSet() {
-        return teacherSet;
-    }
-
-    public void setTeacherSet(Set<Teacher> teacherSet) {
-        this.teacherSet = teacherSet;
-    }
-
-    @XmlTransient
-    public Set<ThesisScore> getThesisScoreSet() {
-        return thesisScoreSet;
-    }
-
-    public void setThesisScoreSet(Set<ThesisScore> thesisScoreSet) {
-        this.thesisScoreSet = thesisScoreSet;
-    }
-
-    public UserRole getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
     }
 
     @Override

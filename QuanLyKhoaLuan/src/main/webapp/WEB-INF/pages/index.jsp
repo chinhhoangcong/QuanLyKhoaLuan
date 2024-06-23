@@ -24,7 +24,7 @@
             <td>${p.name}</td>
             <td>${p.description}</td>
             <td>
-                <c:url value="/thesises/${p.id}" var="url" />
+                <c:url value="/api/thesises/${p.id}" var="url" />
                 <a class="btn btn-info" href="<c:url value="/thesises/${p.id}" />" />Cập nhật</a>
                 <button onclick="deleteProduct('${url}', ${p.id})"  class="btn btn-danger">Xóa</button>
             </td>
